@@ -202,7 +202,8 @@ namespace cadencii
             if ( mUseWideCharacterWorkaround ) {
                 String junction_path = System.IO.Path.Combine( getSystemRoot(), "cadencii_" + id + "_temp" );
                 if (!Directory.Exists(junction_path)) {
-                    cadencii.helper.Utils.MountPointCreate( junction_path, mTempDir );
+					throw new NotImplementedException ();
+                    //cadencii.helper.Utils.MountPointCreate( junction_path, mTempDir );
                     mJunctions.add( junction_path );
                 }
                 mTempDir = junction_path;
@@ -423,7 +424,8 @@ namespace cadencii
                         if ( mUseWideCharacterWorkaround ) {
                             String junction = Path.Combine( getSystemRoot(), "cadencii_" + AppManager.getID() + "_singer_" + program_change );
                             if (!Directory.Exists(junction)) {
-                                cadencii.helper.Utils.MountPointCreate( junction, singer_raw );
+								throw new NotImplementedException ();
+                                //cadencii.helper.Utils.MountPointCreate( junction, singer_raw );
                                 mJunctions.add( junction );
                             }
                             singer = junction;
