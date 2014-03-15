@@ -87,7 +87,7 @@ Global
 		{F4F8F601-4E3D-43F5-A8A8-AA1FB7F48452}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = cadencii.apputil\cadencii.apputil.csproj
+		StartupItem = Cadencii\Cadencii.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
