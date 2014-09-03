@@ -2,9 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{7FC4F869-A95B-439E-93A2-01D85E5A8006}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -12,8 +10,6 @@
     <AssemblyName>CadenciiTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>
-    </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -25,11 +21,15 @@
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Release\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -40,14 +40,16 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework, Version=2.6.0.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <Package>nunit</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cadencii\utau\OtoTest.cs" />
@@ -96,11 +98,11 @@
       <Name>Cadencii</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\cadencii.apputil\cadencii.apputil.csproj">
-      <Project>{0c58b068-272f-4390-a14f-3d72afcf3dfb}</Project>
+      <Project>{0C58B068-272F-4390-A14F-3D72AFCF3DFB}</Project>
       <Name>cadencii.apputil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\cadencii.media\cadencii.media.csproj">
-      <Project>{f4f8f601-4e3d-43f5-a8a8-aa1fb7f48452}</Project>
+      <Project>{F4F8F601-4E3D-43F5-A8A8-AA1FB7F48452}</Project>
       <Name>cadencii.media</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\cadencii.vsq\cadencii.vsq.csproj">
@@ -108,7 +110,7 @@
       <Name>cadencii.vsq</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\cadencii.windows.forms\cadencii.windows.forms.csproj">
-      <Project>{b9481e3b-6842-4ab3-8ed4-29c86c2579a3}</Project>
+      <Project>{B9481E3B-6842-4AB3-8ED4-29C86C2579A3}</Project>
       <Name>cadencii.windows.forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\cadencii.xml\cadencii.xml.csproj">

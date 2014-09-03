@@ -2,9 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{A97A6445-5A48-4CEC-A7CE-05B10126CA2A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,11 +11,9 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <StartupObject>
-    </StartupObject>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>3B7855CA5AB710E8AC0C79D614FD5307A8FDC6F3</ManifestCertificateThumbprint>
     <ManifestKeyFile>keyfile.pfx</ManifestKeyFile>
@@ -26,8 +22,6 @@
     <ApplicationIcon>resources\icon.ico</ApplicationIcon>
     <TargetZone>LocalIntranet</TargetZone>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <TargetFrameworkProfile />
@@ -58,6 +52,9 @@
     <DefineConstants>DEBUG;__TEMPORALY_DISABLED__USE_OLD_SYNTH_IMPL,ENABLE_PROPERTY, ENABLE_VOCALOID, ENABLE_SCRIPT, ENABLE_MIDI, ENABLE_STRIP_DROPDOWN, ENABLE_AQUESTONE, ENABLE_GENERAL_VST, MONITOR_FPS, CSHARP</DefineConstants>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DocumentationFile>bin\x86\Debug\Cadencii.XML</DocumentationFile>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -66,8 +63,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DefineConstants>ENABLE_PROPERTY, ENABLE_VOCALOID, ENABLE_SCRIPT, ENABLE_MOUSEHOVER, ENABLE_MIDI, ENABLE_STRIP_DROPDOWN, ENABLE_AQUESTONE, CSHARP</DefineConstants>
     <Optimize>true</Optimize>
-    <DocumentationFile>
-    </DocumentationFile>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMinimal|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -77,6 +73,8 @@
     <DocumentationFile>bin\x86\Debug\Cadencii.XML</DocumentationFile>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMinimal|x86' ">
     <OutputPath>bin\x86\ReleaseMinimal\</OutputPath>
@@ -86,6 +84,7 @@
     <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoRelease|x86' ">
     <OutputPath>bin\x86\MonoRelease\</OutputPath>
@@ -95,6 +94,7 @@
     <Optimize>true</Optimize>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -475,11 +475,6 @@
     <EmbeddedResource Include="FormVibratoPreset.resx">
       <DependentUpon>FormVibratoPreset.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="TrackSelector.resx">
       <DependentUpon>TrackSelector.cs</DependentUpon>
     </EmbeddedResource>
@@ -543,6 +538,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ui\preference\Preference.resx">
       <DependentUpon>Preference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LogicalName>cadencii.Properties.Resources.resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -787,10 +788,6 @@
       <Project>{0C58B068-272F-4390-A14F-3D72AFCF3DFB}</Project>
       <Name>cadencii.apputil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\cadencii.helper\cadencii.helper.vcxproj">
-      <Project>{5b7732b0-3322-4b24-9ed2-15b2e5d39432}</Project>
-      <Name>cadencii.helper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\cadencii.media\cadencii.media.csproj">
       <Project>{F4F8F601-4E3D-43F5-A8A8-AA1FB7F48452}</Project>
       <Name>cadencii.media</Name>
@@ -825,12 +822,19 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)manual\manual_*.pdf" "$(TargetDir)"
+    <PostBuildEvent Condition="'$(OS)'=='Windows'">copy "$(ProjectDir)manual\manual_*.pdf" "$(TargetDir)"
 copy "$(SolutionDir)$(Configuration)\vConnect-STAND.exe" "$(TargetDir)"
 copy "$(SolutionDir)lib\libiconv.dll" "$(TargetDir)"
 copy "$(SolutionDir)..\data\libfftw3-3.dll" "$(TargetDir)"
 copy "$(SolutionDir)..\data\license.txt" "$(TargetDir)"
 del "$(TargetDir)*.pdb"
+</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)'!='Windows'">cp "$(ProjectDir)manual\manual_*.pdf" "$(TargetDir)"
+cp "$(SolutionDir)$(Configuration)\vConnect-STAND.exe" "$(TargetDir)"
+cp "$(SolutionDir)lib\libiconv.dll" "$(TargetDir)"
+cp "$(SolutionDir)..\data\libfftw3-3.dll" "$(TargetDir)"
+cp "$(SolutionDir)..\data\license.txt" "$(TargetDir)"
+rm -f "$(TargetDir)*.pdb"
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
