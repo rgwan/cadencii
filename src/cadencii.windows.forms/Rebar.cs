@@ -510,7 +510,7 @@ namespace cadencii.windows.forms {
             INITCOMMONCONTROLSEX ComCtls = new INITCOMMONCONTROLSEX();
             ComCtls.dwICC = (uint)win32.ICC_COOL_CLASSES;
             ComCtls.dwSize = (uint)Marshal.SizeOf( ComCtls );
-            bool Result = win32.InitCommonControlsEx( ref ComCtls );
+/*            bool Result = win32.InitCommonControlsEx( ref ComCtls );
             if ( !Result ) {
                 MessageBox.Show( "There was a tragic error.  InitCommControlsEx Failed!" );
             } else {
@@ -534,7 +534,7 @@ namespace cadencii.windows.forms {
                 foreach ( RebarBand band in _bands ) {
                     band.CreateBand();
                 }
-            }
+            }*/
         }
 
         protected override void OnDoubleClick( System.EventArgs e ) {
