@@ -307,7 +307,6 @@ namespace cadencii
             this.panelOverview = new cadencii.PictOverview();
             this.pictPianoRoll = new cadencii.PictPianoRoll();
             this.hScroll = new System.Windows.Forms.HScrollBar();
-            this.rebar = new cadencii.windows.forms.Rebar();
             this.imageListMenu = new System.Windows.Forms.ImageList(this.components);
             this.toolBarFile = new System.Windows.Forms.ToolBar();
             this.stripBtnFileNew = new System.Windows.Forms.ToolBarButton();
@@ -2563,14 +2562,7 @@ namespace cadencii
             this.hScroll.Size = new System.Drawing.Size(257, 16);
             this.hScroll.TabIndex = 16;
             // 
-            // rebar
             // 
-            this.rebar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rebar.Location = new System.Drawing.Point(0, 26);
-            this.rebar.Name = "rebar";
-            this.rebar.Size = new System.Drawing.Size(955, 4);
-            this.rebar.TabIndex = 19;
-            this.rebar.ToggleDoubleClick = true;
             // 
             // imageListMenu
             // 
@@ -2914,7 +2906,6 @@ namespace cadencii
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(955, 689);
             this.Controls.Add(this.toolStripContainer1);
-            this.Controls.Add(this.rebar);
             this.Controls.Add(this.menuStripMain);
             this.Controls.Add(this.splitContainer1);
             this.DoubleBuffered = true;
@@ -3237,11 +3228,6 @@ namespace cadencii
         private ToolStripMenuItem menuHelpLog;
         private ToolStripMenuItem menuHelpLogSwitch;
         private ToolStripMenuItem menuHelpLogOpen;
-        private Rebar rebar;
-        private RebarBand bandFile;
-        private RebarBand bandPosition;
-        private RebarBand bandMeasure;
-        private RebarBand bandTool;
         public cadencii.apputil.BSplitContainer splitContainer2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolBar toolBarFile;

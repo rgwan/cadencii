@@ -152,7 +152,6 @@ namespace cadencii
             new AuthorListEntry( "developper of UTAU:", 2 ),
             new AuthorListEntry( "飴屋/菖蒲", "@ameyaP_" ),
             new AuthorListEntry(),
-            new AuthorListEntry( "developper of RebarDotNet:", 2 ),
             new AuthorListEntry( "Anthony Baraff" ),
             new AuthorListEntry(),
             new AuthorListEntry( "promoter:", 2 ),
@@ -1544,87 +1543,8 @@ namespace cadencii
         /// </summary>
         private void saveToolbarLocation()
         {
-#if JAVA
-            // TODO:
-#else
-            if ( this.WindowState == System.Windows.Forms.FormWindowState.Minimized ) return;
-            // どのツールバーが一番上かつ左にあるか？
-            var list = new System.Collections.Generic.List<RebarBand>();
-            list.AddRange( new RebarBand[]{
-                bandFile,
-                bandMeasure,
-                bandPosition,
-                bandTool } );
-            // ソートする
-            boolean changed = true;
-            while ( changed ) {
-                changed = false;
-                for ( int i = 0; i < list.Count - 1; i++ ) {
-                    // y座標が大きいか，y座標が同じでもx座標が大きい場合に入れ替える
-                    boolean swap =
-                        (list[i].Location.Y > list[i + 1].Location.Y) ||
-                        (list[i].Location.Y == list[i + 1].Location.Y && list[i].Location.X > list[i + 1].Location.X);
-                    if ( swap ) {
-                        var a = list[i];
-                        list[i] = list[i + 1];
-                        list[i + 1] = a;
-                        changed = true;
-                    }
-                }
-            }
-            // 各ツールバー毎に，ツールバーの状態を検出して保存
-            saveToolbarLocationCore(
-                list,
-                bandFile,
-                out AppManager.editorConfig.BandSizeFile,
-                out AppManager.editorConfig.BandNewRowFile,
-                out AppManager.editorConfig.BandOrderFile );
-            saveToolbarLocationCore(
-                list,
-                bandMeasure,
-                out AppManager.editorConfig.BandSizeMeasure,
-                out AppManager.editorConfig.BandNewRowMeasure,
-                out AppManager.editorConfig.BandOrderMeasure );
-            saveToolbarLocationCore(
-                list,
-                bandPosition,
-                out AppManager.editorConfig.BandSizePosition,
-                out AppManager.editorConfig.BandNewRowPosition,
-                out AppManager.editorConfig.BandOrderPosition );
-            saveToolbarLocationCore(
-                list,
-                bandTool,
-                out AppManager.editorConfig.BandSizeTool,
-                out AppManager.editorConfig.BandNewRowTool,
-                out AppManager.editorConfig.BandOrderTool );
-#endif
+            //TODO
         }
-
-#if !JAVA
-        /// <summary>
-        /// ツールバーの位置の順に並べ替えたリストの中の一つのツールバーに対して，その状態を検出して保存
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="band"></param>
-        /// <param name="band_size"></param>
-        /// <param name="new_row"></param>
-        private void saveToolbarLocationCore(
-            System.Collections.Generic.List<RebarBand> list,
-            RebarBand band,
-            out int band_size,
-            out bool new_row,
-            out int band_order )
-        {
-            band_size = 0;
-            new_row = true;
-            band_order = 0;
-            var indx = list.IndexOf( band );
-            if ( indx < 0 ) return;
-            new_row = (indx == 0) ? false : (list[indx - 1].Location.Y < list[indx].Location.Y);
-            band_size = band.BandSize;
-            band_order = indx;
-        }
-#endif
 
         private static int doQuantize( int clock, int unit )
         {
@@ -3224,7 +3144,6 @@ namespace cadencii
             return new Dimension( current_minsize.width,
                                   splitContainer1.getPanel2MinSize() +
                                   _SCROLL_WIDTH + _PICT_POSITION_INDICATOR_HEIGHT + pictPianoRoll.getMinimumSize().height +
-                                  rebar.Height +
                                   menuStripMain.Height + statusStrip.Height +
                                   (current.height - client.height) +
                                   20 );
@@ -7521,7 +7440,6 @@ namespace cadencii
             pictureBox2.MouseUp += new MouseEventHandler( pictureBox2_MouseUp );
             pictureBox2.Paint += new PaintEventHandler( pictureBox2_Paint );
             toolBarTool.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler( toolBarTool_ButtonClick );
-            rebar.SizeChanged += new EventHandler( toolStripContainer_TopToolStripPanel_SizeChanged );
             stripDDBtnQuantize04.Click += handlePositionQuantize;
             stripDDBtnQuantize08.Click += handlePositionQuantize;
             stripDDBtnQuantize16.Click += handlePositionQuantize;
@@ -10424,120 +10342,25 @@ namespace cadencii
             // ツールバーの位置を復帰させる
             // toolStipの位置を，前回終了時の位置に戻す
             int chevron_width = AppManager.editorConfig.ChevronWidth;
-            this.bandFile = new RebarBand();
-            this.bandPosition = new RebarBand();
-            this.bandMeasure = new RebarBand();
-            this.bandTool = new RebarBand();
 
             bool variant_height = false;
-            this.bandFile.VariantHeight = variant_height;
-            this.bandPosition.VariantHeight = variant_height;
-            this.bandMeasure.VariantHeight = variant_height;
-            this.bandTool.VariantHeight = variant_height;
 
             int MAX_BAND_HEIGHT = 26;// toolBarTool.Height;
 
-            this.rebar.Controls.Add( this.toolBarFile );
-            this.rebar.Controls.Add( this.toolBarTool );
-            this.rebar.Controls.Add( this.toolBarPosition );
-            this.rebar.Controls.Add( this.toolBarMeasure );
-            // bandFile
-            this.bandFile.AllowVertical = false;
-            this.bandFile.Child = this.toolBarFile;
-            this.bandFile.Header = -1;
-            this.bandFile.Integral = 1;
-            this.bandFile.MaxHeight = MAX_BAND_HEIGHT;
-            this.bandFile.UseChevron = true;
-            if ( toolBarFile.Buttons.Count > 0 ) {
-                this.bandFile.IdealWidth =
-                    toolBarFile.Buttons[toolBarFile.Buttons.Count - 1].Rectangle.Right + chevron_width;
-            }
-            this.bandFile.BandSize = AppManager.editorConfig.BandSizeFile;
-            this.bandFile.NewRow = AppManager.editorConfig.BandNewRowFile;
-            // bandPosition
-            this.bandPosition.AllowVertical = false;
-            this.bandPosition.Child = this.toolBarPosition;
-            this.bandPosition.Header = -1;
-            this.bandPosition.Integral = 1;
-            this.bandPosition.MaxHeight = MAX_BAND_HEIGHT;
-            this.bandPosition.UseChevron = true;
-            if ( toolBarPosition.Buttons.Count > 0 ) {
-                this.bandPosition.IdealWidth =
-                    toolBarPosition.Buttons[toolBarPosition.Buttons.Count - 1].Rectangle.Right + chevron_width;
-            }
-            this.bandPosition.BandSize = AppManager.editorConfig.BandSizePosition;
-            this.bandPosition.NewRow = AppManager.editorConfig.BandNewRowPosition;
-            // bandMeasure
-            this.bandMeasure.AllowVertical = false;
-            this.bandMeasure.Child = this.toolBarMeasure;
-            this.bandMeasure.Header = -1;
-            this.bandMeasure.Integral = 1;
-            this.bandMeasure.MaxHeight = MAX_BAND_HEIGHT;
-            this.bandMeasure.UseChevron = true;
-            if ( toolBarMeasure.Buttons.Count > 0 ) {
-                this.bandMeasure.IdealWidth =
-                    toolBarMeasure.Buttons[toolBarMeasure.Buttons.Count - 1].Rectangle.Right + chevron_width;
-            }
-            this.bandMeasure.BandSize = AppManager.editorConfig.BandSizeMeasure;
-            this.bandMeasure.NewRow = AppManager.editorConfig.BandNewRowMeasure;
-            // bandTool
-            this.bandTool.AllowVertical = false;
-            this.bandTool.Child = this.toolBarTool;
-            this.bandTool.Header = -1;
-            this.bandTool.Integral = 1;
-            this.bandTool.MaxHeight = MAX_BAND_HEIGHT;
-            this.bandTool.UseChevron = true;
-            if ( toolBarTool.Buttons.Count > 0 ) {
-                this.bandTool.IdealWidth =
-                    toolBarTool.Buttons[toolBarTool.Buttons.Count - 1].Rectangle.Right + chevron_width;
-            }
-            this.bandTool.BandSize = AppManager.editorConfig.BandSizeTool;
-            this.bandTool.NewRow = AppManager.editorConfig.BandNewRowTool;
             // 一度リストに入れてから追加する
-            var bands = new RebarBand[] { null, null, null, null };
             // 番号がおかしくないかチェック
-            if ( AppManager.editorConfig.BandOrderFile < 0 || bands.Length <= AppManager.editorConfig.BandOrderFile ) AppManager.editorConfig.BandOrderFile = 0;
-            if ( AppManager.editorConfig.BandOrderMeasure < 0 || bands.Length <= AppManager.editorConfig.BandOrderMeasure ) AppManager.editorConfig.BandOrderMeasure = 0;
-            if ( AppManager.editorConfig.BandOrderPosition < 0 || bands.Length <= AppManager.editorConfig.BandOrderPosition ) AppManager.editorConfig.BandOrderPosition = 0;
-            if ( AppManager.editorConfig.BandOrderTool < 0 || bands.Length <= AppManager.editorConfig.BandOrderTool ) AppManager.editorConfig.BandOrderTool = 0;
-            bands[AppManager.editorConfig.BandOrderFile] = bandFile;
-            bands[AppManager.editorConfig.BandOrderMeasure] = bandMeasure;
-            bands[AppManager.editorConfig.BandOrderPosition] = bandPosition;
-            bands[AppManager.editorConfig.BandOrderTool] = bandTool;
             // nullチェック
             boolean null_exists = false;
-            for ( var i = 0; i < bands.Length; i++ ) {
-                if ( bands[i] == null ) {
-                    null_exists = true;
-                    break;
-                }
-            }
             if ( null_exists ) {
                 // 番号に矛盾があれば，デフォルトの並び方で
-                bands[0] = bandFile;
-                bands[1] = bandMeasure;
-                bands[2] = bandPosition;
-                bands[3] = bandTool;
-                bandFile.NewRow = true;
-                bandMeasure.NewRow = true;
-                bandPosition.NewRow = true;
-                bandTool.NewRow = true;
             }
 
             // 追加
-            for ( var i = 0; i < bands.Length; i++ ) {
-                if ( i == 0 ) bands[i].NewRow = true;
-                bands[i].MinHeight = 24;
-                this.rebar.Bands.Add( bands[i] );
-            }
+            //}
 
 #if DEBUG
             sout.println( "FormMain#.ctor; this.Width=" + this.Width );
 #endif
-            bandTool.Resize += this.toolStripEdit_Resize;
-            bandMeasure.Resize += this.toolStripMeasure_Resize;
-            bandPosition.Resize += this.toolStripPosition_Resize;
-            bandFile.Resize += this.toolStripFile_Resize;
 #endif // !JAVA
 
             updateSplitContainer2Size( false );

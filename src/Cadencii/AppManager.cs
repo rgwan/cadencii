@@ -2799,6 +2799,10 @@ namespace cadencii
             SymbolTable.loadDictionary(
                 Path.Combine( Path.Combine( PortUtil.getApplicationStartupPath(), "resources" ), "dict_en.txt" ),
                 "DEFAULT_EN" );
+            // Chinese Dictionary
+            SymbolTable.loadDictionary(
+                Path.Combine( Path.Combine( PortUtil.getApplicationStartupPath(), "resources" ), "dict_zh.txt" ),
+                "DEFAULT_ZH" );
             // 拡張辞書
             SymbolTable.loadAllDictionaries( Path.Combine( PortUtil.getApplicationStartupPath(), "udic" ) );
             //VSTiProxy.CurrentUser = "";
